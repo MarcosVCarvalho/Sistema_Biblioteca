@@ -1,6 +1,5 @@
 import Funções
-import time
-import datetime
+import datetime 
 
 while True:
     print('='*80)
@@ -37,7 +36,7 @@ while True:
             autor = input('Autor do livro: ')
             ano_publicacao = int(input('Ano de publicação: '))
             id_livro = Funções.Adicionarnovolivro(titulo, autor, ano_publicacao)
-            print(f'Livro adicionado com sucesso - ID:{id_livro}'.center(80))
+            print(f'Livro adicionado com sucesso - ID:{id_livro}')
 
         elif opcao_Valida == 2:
             Funções.criar_titulo('Listar todos os livros')
@@ -61,8 +60,8 @@ while True:
             Funções.criar_titulo('Adicionar novo usuário')
             nome_usuario = input('Nome do Usuario: ')
             email_usuario = input('Email do Usuario: ')
-            id_usu = Funções.Adicionarnovousuário(nome_usuario, email_usuario)
-            print(f'Usuario adicionado com sucesso - ID:{id_usu}'.center(80))
+            id_usuario = Funções.Adicionarnovousuário(nome_usuario, email_usuario)
+            print(f'Usuario adicionado com sucesso - ID:{id_usuario}')
 
         elif opcao_Valida == 5:
             Funções.criar_titulo('Listar todos os usuários')
@@ -78,7 +77,7 @@ while True:
                 id_emprestimo = Funções.realizar_emprestimo(id_livro_desejado, id_usuario, data_emprestimo)
                 print(f'Emprestimo realizado com sucesso - ID:{id_emprestimo}')
             else:
-                print('Erro! id de usuario ou livro inexistente'.center(80))
+                print('Erro! id de usuario ou livro inexistente')
 
         elif opcao_Valida == 7:
             Funções.criar_titulo('Devolver um livro')

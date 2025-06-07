@@ -1,19 +1,9 @@
 import random
 catalogo_livros = []
 catalogo_usuarios = []
-livro = ids_existentes = []
+ids_existentes = []
 registros_emprestimos = []
-def OpcaoValida(a):
-    try:
-        if a in range(11):
-            return a
-        else:
-            print('ERRO! Opção deve estar entre 0 e 10.'.center(80))
 
-    except ValueError:
-        print('ERRO! Digite uma opção validade'.center(80))
-        return None
-    
 def gerar_id_unico(minimo=0, maximo=9999, max_tentativas=10000):
     global catalogo_livros
     global catalogo_usuarios
@@ -101,17 +91,11 @@ def atualizar_disponibilidade_livro(id_livro, disponivel):
 def Verificador_para_emprestimo(id_usuario, id_livro):
     global catalogo_livros
     global catalogo_usuarios
-    v1 = v2 = False
-    for usuario in catalogo_usuarios:
-        if id_usuario == usuario['id']:
-            v1 = True
-    for livro in catalogo_livros:
-        if id_livro == livro['id']:
-            v2 = True
-    if v1 and v2 == True:
+
+    usuario_existe = any(usuario['id'] == id_usuario for usuario in catalogo_usuarios)
+    livro_existe = any(livro['id'] == id_livro for livro in catalogo_livros)
+    if usuario_existe and livro_existe == True:
         return True
-    else:
-        return False
     
 def realizar_emprestimo(id_livro_desejado, id_usuario, data_emprestimo):
     global registros_emprestimos
@@ -146,15 +130,15 @@ def listar_emprestimos_ativos():
     print("=" * 80)
     for emprestimo in registros_emprestimos:
         for usuario in catalogo_usuarios:
-            if usuario['id'] == emprestimo['id_usuario']:
-                nome_usuario = usuario['nome']
-        for livro in catalogo_livros:
-            if livro['id'] == emprestimo['id_livro']:
-                titulo_livro = livro['titulo'] 
-        if emprestimo['data_devolucao'] == False:
-            id_emprestimo = emprestimo['id']
-            
-        print(f"{id_emprestimo:<5}{nome_usuario:<36}{titulo_livro:<36}")
+            for livro in catalogo_livros:
+                if usuario['id'] == emprestimo['id_usuario'] and emprestimo['data_devolucao'] == False and livro['id'] == emprestimo['id_livro']:
+                    nome_usuario = usuario['nome']
+                    id_emprestimo = emprestimo['id']
+                    titulo_livro = livro['titulo'] 
+                    try:
+                        print(f"{id_emprestimo:<5}{nome_usuario:<36}{titulo_livro:<36}")
+                    except:
+                        print('Sem emprestimos ativos')
 
 def historico_emprestimos_usuario(id_usuario):
     global registros_emprestimos
@@ -170,10 +154,10 @@ def historico_emprestimos_usuario(id_usuario):
     for emprestimo in registros_emprestimos:
         if id_usuario == emprestimo['id_usuario']:
             id_emprestimo = emprestimo['id']
-            if emprestimo['data_devolucao'] == True:
-                estado_emprestimo = 'Devolvido'
-            else:
+            if emprestimo['data_devolucao'] == False:
                 estado_emprestimo = 'Ativo'
+            else:
+                estado_emprestimo = 'Devolvido'
             for livro in catalogo_livros:
                 if livro['id'] == emprestimo['id_livro']:
                     titulo_livro = livro['titulo'] 
