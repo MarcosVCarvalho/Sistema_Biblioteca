@@ -31,7 +31,6 @@ def Adicionarnovolivro(titulo, autor, ano_publicacao):
     livro['ano_publicacao'] = ano_publicacao
     livro['disponivel'] = True
     catalogo_livros.append(livro.copy())
-
     return id
 
 def Listartodososlivros():
@@ -39,13 +38,8 @@ def Listartodososlivros():
     print(f"{'ID':<5} {'Título':<30} {'Autor':<20} {'Ano':<10} {'Disponível':<12}")
     print("=" * 80)
     for livro in catalogo_livros:
-        id_livro = livro['id']
-        titulo = livro['titulo']
-        autor = livro['autor']
-        ano_publicacao = livro['ano_publicacao']
         disponivel = 'Sim' if livro['disponivel'] == True else 'Não' 
-        
-        print(f"{id_livro:<5} {titulo:<30} {autor:<20} {ano_publicacao:<10} {disponivel:<12}")
+        print(f"{livro['id']:<5} {livro['titulo']:<30} {livro['autor']:<20} {livro['ano_publicacao']:<10} {disponivel:<12}")
 
 def Buscarlivroportítulo(titulo_a_buscar):
     global catalogo_livros
@@ -74,11 +68,7 @@ def Listartodososusuários():
     print(f"{'ID':<5}{'Nome do Usuario':<36} {'Email do Usuario':<36} ")
     print("=" * 80)
     for usuario in catalogo_usuarios:
-        nome_usuario = usuario['nome']
-        email = usuario['email']
-        id_usuario = usuario['id']
-        
-        print(f"{id_usuario:<5} {nome_usuario:<36} {email:<36}")
+        print(f"{usuario['id']:<5} {usuario['nome']:<36} {usuario['email']:<36}")
 
 def atualizar_disponibilidade_livro(id_livro, disponivel):
     global catalogo_livros
