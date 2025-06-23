@@ -1,0 +1,41 @@
+{
+    "livros": [
+        {
+            "id": 1,
+            "titulo": "one",
+            "autor": "piece",
+            "ano_publicacao": 2000,
+            "disponivel": true
+        },
+        {
+            "id": 3,
+            "titulo": "clube da luta",
+            "autor": "chuck",
+            "ano_publicacao": 1995,
+            "disponivel": false
+        }
+    ],
+    "usuarios": [
+        {
+            "id": 2,
+            "nome": "mv",
+            "email": "sd"
+        }
+    ],
+    "emprestimos": [
+        {
+            "id": 3,
+            "id_livro": 1,
+            "id_usuario": 2,
+            "data_emprestimo": "2025-06-23 13:55:53.992882",
+            "data_devolucao": "2025-06-23 13:56:08.725312"
+        },
+        {
+            "id": 4,
+            "id_livro": 3,
+            "id_usuario": 2,
+            "data_emprestimo": "2025-06-23 13:58:38.721112",
+            "data_devolucao": "xx/xx/xx"
+        }
+    ]
+}

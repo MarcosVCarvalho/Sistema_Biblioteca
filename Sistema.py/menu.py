@@ -3,6 +3,7 @@ import datetime
 
 #Menu
 while True:
+    Funções.carregar_dados_json()
     print('='*80)
     print('Menu Principal'.center(80))
     print('='*80)
@@ -75,30 +76,26 @@ while True:
             Funções.criar_titulo('Listar todos os usuários')
             Funções.Listartodososusuários()
         
-        elif opcao_Valida == 6:
+        elif opcao_Valida == 6:  # Realizar empréstimo
             try:
                 Funções.criar_titulo('Realizar um empréstimo')
                 id_usuario = int(input('Digite o id do usuario: '))
                 id_livro_desejado = int(input('Digite o id do livro desejado: '))
-                verificador = Funções.Verificador_para_emprestimo(id_usuario,id_livro_desejado)
-                if verificador == True:
-                    data_emprestimo = datetime.datetime.now()
-                    id_emprestimo = Funções.realizar_emprestimo(id_livro_desejado, id_usuario, data_emprestimo)
-                    print(f'Emprestimo realizado com sucesso - ID:{id_emprestimo}')
+                if Funções.Verificador_para_emprestimo(id_usuario, id_livro_desejado):
+                    id_emprestimo = Funções.realizar_emprestimo(id_livro_desejado, id_usuario)
+                    print(f'Empréstimo realizado com sucesso - ID:{id_emprestimo}')
                 else:
-                    print('Erro! id de usuario ou livro inexistente')
-            except:
-                print('ERRO! Digite novamente')
-
-        elif opcao_Valida == 7:
+                    print('Erro! ID de usuário ou livro inexistente')
+            except ValueError:
+                print('ERRO! Digite um número válido.')
+        elif opcao_Valida == 7:  # Devolver livro
             try:
                 Funções.criar_titulo('Devolver um livro')
-                id_emprestimo = int(input('Digite o id do emprestimo: '))
-                data_devolucao = datetime.datetime.now()
-                Funções.devolver_livro(id_emprestimo, data_devolucao)
-                Funções.criar_titulo('Devolução realizada com sucesso')
-            except:
-                print('ERRO! Digite novamente')
+                id_emprestimo = int(input('Digite o id do empréstimo: '))
+                if Funções.devolver_livro(id_emprestimo):
+                    print('Devolução realizada com sucesso!'.center(80))
+            except ValueError:
+                print('ERRO! Digite um número válido.')
 
         elif opcao_Valida == 8:
             Funções.criar_titulo('Listar empréstimos ativos')
